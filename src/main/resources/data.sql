@@ -4,7 +4,7 @@ CREATE TABLE servicio(
 );
 
 CREATE TABLE servicio_hospedaje(
-    PRIMARY KEY (Id_Servicio, Id_Hospedaje),
+    PRIMARY KEY (id_servicio, id_hospedaje),
     Foreign Key (id_servicio) REFERENCES servicio(id),
     Foreign Key (id_hospedaje) REFERENCES hospedaje(id)
 );

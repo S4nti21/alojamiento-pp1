@@ -15,8 +15,7 @@ public class Reserva {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_usuario;
-    private Long id_hospeaje;
+    private Long id;
 
     @Column
     private String fecha_check_in;

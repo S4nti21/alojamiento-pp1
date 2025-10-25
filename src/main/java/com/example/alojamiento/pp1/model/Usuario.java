@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
@@ -17,8 +18,6 @@ public class Usuario {
     private Long id;
 
     @Column
-    private String userName;
-    @Column
     private String contraseña;
 
     @Column
@@ -28,13 +27,12 @@ public class Usuario {
     @Column
     private String apellido;
     @Column
-    private String fecha_nacimiento;
+    @Lob
+    private byte[] imagen;
     @Column
-    private String fecha_creacion;
-    @Column
-    private String fecha_modificacion;
+    private int dni;
 
-    @ManyToOne
-    @JoinColumn(name = "id_tipo_usuario")
-    private TipoUsuario TipoUsuario;
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "id_tipo_usuario", nullable = true)
+    private TipoUsuario tipoUsuario;
 }

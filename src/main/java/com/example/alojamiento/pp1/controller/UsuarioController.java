@@ -1,6 +1,7 @@
 package com.example.alojamiento.pp1.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.alojamiento.pp1.model.Usuario;
@@ -21,8 +22,9 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public Usuario crearUsuario(@RequestBody Usuario usuario) {
-        return usuarioRepository.save(usuario);
+    public ResponseEntity<Usuario> crearUsuario(@RequestBody Usuario usuario) {
+        Usuario nuevoUsuario = usuarioRepository.save(usuario);
+        return ResponseEntity.ok(nuevoUsuario);
     }
 
     @PutMapping("/{id}")

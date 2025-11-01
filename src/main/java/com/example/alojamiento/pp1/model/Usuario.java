@@ -2,12 +2,12 @@ package com.example.alojamiento.pp1.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
-import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
 @Data
@@ -32,7 +32,8 @@ public class Usuario {
     @Column
     private int dni;
 
-    @ManyToOne(optional = true)
-    @JoinColumn(name = "id_tipo_usuario", nullable = true)
-    private TipoUsuario tipoUsuario;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private RolUsuario rol;
+
 }

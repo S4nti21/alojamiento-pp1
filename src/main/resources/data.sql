@@ -13,11 +13,6 @@ CREATE TABLE IF NOT EXISTS ciudad (
     FOREIGN KEY (id_pais) REFERENCES pais(id)
 );
 
-CREATE TABLE IF NOT EXISTS tipo_usuario (
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100)
-);
-
 CREATE TABLE IF NOT EXISTS tipo_hospedaje (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100)
@@ -35,9 +30,7 @@ CREATE TABLE IF NOT EXISTS usuario (
     nombre VARCHAR(100),
     apellido VARCHAR(100),
     imagen LONGBLOB,
-    dni INT,
-    id_tipo_usuario INT,
-    FOREIGN KEY (id_tipo_usuario) REFERENCES tipo_usuario(id)
+    dni INT
 );
 
 CREATE TABLE IF NOT EXISTS hospedaje (
@@ -65,6 +58,7 @@ CREATE TABLE IF NOT EXISTS servicio_hospedaje (
 );
 
 CREATE TABLE IF NOT EXISTS reserva (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_hospedaje INT NOT NULL,
     id_usuario INT NOT NULL,
     fecha_check_in DATETIME,
@@ -76,9 +70,9 @@ CREATE TABLE IF NOT EXISTS reserva (
     importe_total DOUBLE,
     fecha_creacion DATETIME,
     fecha_modificacion DATETIME,
-    PRIMARY KEY (id_hospedaje, id_usuario),
     FOREIGN KEY (id_hospedaje) REFERENCES hospedaje(id)
         ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (id_usuario) REFERENCES usuario(id)
         ON DELETE CASCADE ON UPDATE CASCADE
 );
+

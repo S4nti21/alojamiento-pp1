@@ -1,5 +1,7 @@
 package com.example.alojamiento.pp1.model;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,9 +20,9 @@ public class Reserva {
     private Long id;
 
     @Column
-    private String fecha_check_in;
+    private LocalDateTime fecha_check_in;
     @Column
-    private String fecha_check_out;
+    private LocalDateTime fecha_check_out;
     @Column
     private Integer cant_niños;
     @Column
@@ -28,9 +30,9 @@ public class Reserva {
     @Column
     private Integer cant_mascotas;
     @Column
-    private String fecha_creacion;
+    private LocalDateTime fecha_creacion;
     @Column
-    private String fecha_modificacion;
+    private LocalDateTime fecha_modificacion;
     @Column
     private Integer cant_bebes;
     @Column

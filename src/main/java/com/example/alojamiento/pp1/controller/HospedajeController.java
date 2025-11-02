@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.alojamiento.pp1.model.Hospedaje;
 import com.example.alojamiento.pp1.model.Servicio;
-import com.example.alojamiento.pp1.repository.CiudadRepository;
 import com.example.alojamiento.pp1.repository.HospedajeRepository;
 import com.example.alojamiento.pp1.repository.ServicioRepository;
 import com.example.alojamiento.pp1.repository.TipoHospedajeRepository;
@@ -31,8 +30,6 @@ public class HospedajeController {
     private HospedajeRepository hospedajeRepository;
     @Autowired
     private ServicioRepository servicioRepository;
-    @Autowired
-    private CiudadRepository ciudadRepository;
     @Autowired
     private TipoHospedajeRepository tipoHospedajeRepository;
 
@@ -55,15 +52,11 @@ public class HospedajeController {
     public Hospedaje editarHospedaje(@PathVariable Long id, @RequestBody Hospedaje hospedajeNuevo) {
         return hospedajeRepository.findById(id)
                 .map(hospedaje -> {
+                    hospedaje.setDireccion(hospedajeNuevo.getDireccion());
                     hospedaje.setNombre(hospedajeNuevo.getNombre());
                     hospedaje.setDescripcion(hospedajeNuevo.getDescripcion());
                     hospedaje.setImagen(hospedajeNuevo.getImagen());
                     hospedaje.setPrecio_por_noche(hospedajeNuevo.getPrecio_por_noche());
-
-                    if (hospedajeNuevo.getCiudad() != null && hospedajeNuevo.getCiudad().getId() != null) {
-                        ciudadRepository.findById(hospedajeNuevo.getCiudad().getId())
-                                .ifPresent(hospedaje::setCiudad);
-                    }
 
                     if (hospedajeNuevo.getTipoHospedaje() != null
                             && hospedajeNuevo.getTipoHospedaje().getId() != null) {

@@ -1,18 +1,6 @@
 
 USE alojamiento_pp1;
 
-CREATE TABLE IF NOT EXISTS pais (
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100)
-);
-
-CREATE TABLE IF NOT EXISTS ciudad (
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100),
-    id_pais INT,
-    FOREIGN KEY (id_pais) REFERENCES pais(id)
-);
-
 CREATE TABLE IF NOT EXISTS tipo_hospedaje (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100)
@@ -36,6 +24,7 @@ CREATE TABLE IF NOT EXISTS usuario (
 CREATE TABLE IF NOT EXISTS hospedaje (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100),
+    direccion VARCHAR(100),
     descripcion VARCHAR(250),
     imagen VARCHAR(500),
     precio_por_noche DOUBLE,
@@ -43,7 +32,6 @@ CREATE TABLE IF NOT EXISTS hospedaje (
     fecha_modificacion DATE,
     id_tipo_hospedaje INT,
     id_ciudad INT,
-    FOREIGN KEY (id_tipo_hospedaje) REFERENCES tipo_hospedaje(id),
     FOREIGN KEY (id_ciudad) REFERENCES ciudad(id)
 );
 

@@ -25,6 +25,9 @@ public class Hospedaje {
     private String nombre;
 
     @Column
+    private String direccion;
+
+    @Column
     private String descripcion;
 
     @Column
@@ -38,10 +41,6 @@ public class Hospedaje {
 
     @Column
     private String fecha_modificacion;
-
-    @ManyToOne
-    @JoinColumn(name = "id_ciudad")
-    private Ciudad ciudad;
 
     @ManyToOne
     @JoinColumn(name = "id_tipo_hospedaje")

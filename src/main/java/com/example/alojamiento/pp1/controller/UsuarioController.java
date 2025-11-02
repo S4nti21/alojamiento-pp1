@@ -9,8 +9,9 @@ import com.example.alojamiento.pp1.repository.UsuarioRepository;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("/api/usuario")
 public class UsuarioController {
 
     @Autowired

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,8 +22,9 @@ import com.example.alojamiento.pp1.repository.HospedajeRepository;
 import com.example.alojamiento.pp1.repository.ServicioRepository;
 import com.example.alojamiento.pp1.repository.TipoHospedajeRepository;
 
+@CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/Hospedaje")
+@RequestMapping("/api/hospedaje")
 public class HospedajeController {
 
     @Autowired

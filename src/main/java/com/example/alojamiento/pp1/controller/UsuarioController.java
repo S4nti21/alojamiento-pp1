@@ -8,6 +8,7 @@ import com.example.alojamiento.pp1.model.Usuario;
 import com.example.alojamiento.pp1.repository.UsuarioRepository;
 
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -28,14 +29,19 @@ public class UsuarioController {
         return ResponseEntity.ok(nuevoUsuario);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Usuario> obtenerUsuarioPorId(@PathVariable Long id) {
+        return usuarioRepository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     @PutMapping("/{id}")
     public Usuario editarUsuario(@PathVariable Long id, @RequestBody Usuario usuarioNuevo) {
         return usuarioRepository.findById(id)
                 .map(usuario -> {
                     usuario.setNombre(usuarioNuevo.getNombre());
                     usuario.setApellido(usuarioNuevo.getApellido());
-                    usuario.setEmail(usuarioNuevo.getEmail());
-                    usuario.setContraseña(usuarioNuevo.getContraseña());
                     usuario.setDni(usuarioNuevo.getDni());
                     usuario.setImagen(usuarioNuevo.getImagen());
                     return usuarioRepository.save(usuario);
@@ -44,12 +50,16 @@ public class UsuarioController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody Usuario datosLogin) {
+    public ResponseEntity<?> login(@RequestBody Usuario datosLogin) {
         Usuario usuario = usuarioRepository.findByEmail(datosLogin.getEmail());
         if (usuario != null && usuario.getContraseña().equals(datosLogin.getContraseña())) {
-            return "Usuario correcto";
+            return ResponseEntity.ok(Map.of(
+                    "mensaje", "Usuario correcto",
+                    "usuario", usuario));
         } else {
-            return "Email o contraseña incorrecta";
+            return ResponseEntity.status(400).body(Map.of(
+                    "mensaje", "Email o contraseña incorrecta"));
         }
     }
+
 }

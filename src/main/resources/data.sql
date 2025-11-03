@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS usuario (
     email VARCHAR(100) UNIQUE,
     nombre VARCHAR(100),
     apellido VARCHAR(100),
-    imagen LONGBLOB,
+    imagen VARCHAR(500),
     dni INT
 );
 

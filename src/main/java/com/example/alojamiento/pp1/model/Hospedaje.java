@@ -49,4 +49,8 @@ public class Hospedaje {
     @ManyToMany
     @JoinTable(name = "servicio_hospedaje", joinColumns = @JoinColumn(name = "id_hospedaje"), inverseJoinColumns = @JoinColumn(name = "id_servicio"))
     private Set<Servicio> servicios;
+
+    @ManyToOne
+    @JoinColumn(name = "id_usuario", nullable = false)
+    private Usuario usuario;
 }

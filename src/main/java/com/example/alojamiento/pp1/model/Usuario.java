@@ -7,7 +7,6 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
 import lombok.Data;
 
 @Data
@@ -27,8 +26,7 @@ public class Usuario {
     @Column
     private String apellido;
     @Column
-    @Lob
-    private byte[] imagen;
+    private String imagen;
     @Column
     private int dni;
 

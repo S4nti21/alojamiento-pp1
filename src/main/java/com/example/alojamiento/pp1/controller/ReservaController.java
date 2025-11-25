@@ -1,26 +1,14 @@
 package com.example.alojamiento.pp1.controller;
 
-import java.util.List;
-import java.util.Optional;
+import com.example.alojamiento.pp1.dto.ReservaDTO;
+import com.example.alojamiento.pp1.model.Reserva;
+import com.example.alojamiento.pp1.service.ReservaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.example.alojamiento.pp1.dto.ReservaDTO;
-import com.example.alojamiento.pp1.model.Hospedaje;
-import com.example.alojamiento.pp1.model.Reserva;
-import com.example.alojamiento.pp1.model.Usuario;
-import com.example.alojamiento.pp1.repository.HospedajeRepository;
-import com.example.alojamiento.pp1.repository.ReservaRepository;
-import com.example.alojamiento.pp1.repository.UsuarioRepository;
+import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -28,63 +16,35 @@ import com.example.alojamiento.pp1.repository.UsuarioRepository;
 public class ReservaController {
 
     @Autowired
-    private ReservaRepository reservaRepository;
-    @Autowired
-    private UsuarioRepository usuarioRepository;
-
-    @Autowired
-    private HospedajeRepository hospedajeRepository;
+    private ReservaService reservaService;
 
     @GetMapping()
     public List<Reserva> todasLasReservas() {
-        return reservaRepository.findAll();
+        return reservaService.listarTodas();
     }
 
     @PostMapping()
     public Reserva crearReserva(@RequestBody ReservaDTO reservaDTO) {
-        Reserva reserva = new Reserva();
-        reserva.setFecha_check_in(reservaDTO.getFecha_check_in());
-        reserva.setFecha_check_out(reservaDTO.getFecha_check_out());
-        Usuario usuario = usuarioRepository.findById(reservaDTO.getUsuarioId())
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        Hospedaje hospedaje = hospedajeRepository.findById(reservaDTO.getAlojamientoId())
-                .orElseThrow(() -> new RuntimeException("Hospedaje no encontrado"));
-        reserva.setUsuario(usuario);
-        reserva.setHospedaje(hospedaje);
-        return reservaRepository.save(reserva);
+        return reservaService.crearReserva(reservaDTO);
     }
 
     @GetMapping("/{id}")
     public Optional<Reserva> verUnaReserva(@PathVariable Long id) {
-        return reservaRepository.findById(id);
+        return reservaService.buscarPorId(id);
     }
 
     @PutMapping("/{id}")
-    public Reserva editarHospedaje(@PathVariable Long id, @RequestBody Reserva reservaNueva) {
-        return reservaRepository.findById(id)
-                .map(reserva -> {
-                    reserva.setFecha_check_in(reservaNueva.getFecha_check_in());
-                    reserva.setFecha_check_out(reservaNueva.getFecha_check_out());
-                    reserva.setFecha_creacion(reservaNueva.getFecha_creacion());
-                    reserva.setFecha_modificacion(reservaNueva.getFecha_modificacion());
-                    reserva.setImporte_total(reservaNueva.getImporte_total());
-                    return reservaRepository.save(reserva);
-                })
-                .orElseThrow(() -> new RuntimeException("Reserva no encontrado"));
-
+    public Reserva editarReserva(@PathVariable Long id, @RequestBody Reserva reservaNueva) {
+        return reservaService.editarReserva(id, reservaNueva);
     }
 
     @GetMapping("/usuario/{usuarioId}")
     public List<Reserva> reservasPorUsuario(@PathVariable Long usuarioId) {
-        List<Hospedaje> alojamientos = hospedajeRepository.findByUsuarioId(usuarioId);
-        return reservaRepository.findAll().stream()
-                .filter(r -> alojamientos.stream().anyMatch(h -> h.getId().equals(r.getHospedaje().getId())))
-                .toList();
+        return reservaService.reservasPorUsuario(usuarioId);
     }
 
     @DeleteMapping("/{id}")
     public void eliminarReserva(@PathVariable Long id) {
-        reservaRepository.deleteById(id);
+        reservaService.eliminar(id);
     }
-
 }

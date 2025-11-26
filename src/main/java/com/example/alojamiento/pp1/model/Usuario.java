@@ -28,7 +28,7 @@ public class Usuario {
     @Column
     private String imagen;
     @Column
-    private int dni;
+    private Integer dni;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

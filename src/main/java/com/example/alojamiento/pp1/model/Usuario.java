@@ -25,7 +25,7 @@ public class Usuario {
     private String nombre;
     @Column
     private String apellido;
-    @Column
+    @Column(nullable = true)
     private String imagen;
     @Column
     private Integer dni;

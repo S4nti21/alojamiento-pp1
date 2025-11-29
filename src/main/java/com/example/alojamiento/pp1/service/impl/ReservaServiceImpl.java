@@ -34,7 +34,7 @@ public class ReservaServiceImpl implements ReservaService {
 
     @Override
     public Reserva crearReserva(ReservaDTO reservaDTO) {
-  
+
         Reserva reserva = new Reserva();
         reserva.setFechaCheckIn(reservaDTO.getFechaCheckIn());
         reserva.setFechaCheckOut(reservaDTO.getFechaCheckOut());
@@ -77,6 +77,13 @@ public class ReservaServiceImpl implements ReservaService {
         List<Hospedaje> alojamientos = hospedajeRepository.findByUsuarioId(usuarioId);
         return reservaRepository.findAll().stream()
                 .filter(r -> alojamientos.stream().anyMatch(h -> h.getId().equals(r.getHospedaje().getId())))
+                .toList();
+    }
+
+    @Override
+    public List<Reserva> reservasPorHuesped(Long usuarioId) {
+        return reservaRepository.findAll().stream()
+                .filter(r -> r.getUsuario().getId().equals(usuarioId))
                 .toList();
     }
 

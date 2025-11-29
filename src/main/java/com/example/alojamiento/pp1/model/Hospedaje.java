@@ -30,7 +30,7 @@ public class Hospedaje {
     @Column
     private String descripcion;
 
-    @Column
+    @Column(nullable = true)
     private String imagen;
 
     @Column

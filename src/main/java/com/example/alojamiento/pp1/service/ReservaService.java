@@ -1,10 +1,10 @@
 package com.example.alojamiento.pp1.service;
 
-import com.example.alojamiento.pp1.dto.ReservaDTO;
-import com.example.alojamiento.pp1.model.Reserva;
-
 import java.util.List;
 import java.util.Optional;
+
+import com.example.alojamiento.pp1.dto.ReservaDTO;
+import com.example.alojamiento.pp1.model.Reserva;
 
 public interface ReservaService {
 
@@ -19,4 +19,6 @@ public interface ReservaService {
     List<Reserva> reservasPorUsuario(Long usuarioId);
 
     void eliminar(Long id);
+
+    public List<Reserva> reservasPorHuesped(Long usuarioId);
 }

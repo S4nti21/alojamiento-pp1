@@ -44,7 +44,7 @@ public class Hospedaje {
 
     @ManyToOne
     @JoinColumn(name = "id_tipo_hospedaje")
-    private TipoHospedaje TipoHospedaje;
+    private TipoHospedaje tipoHospedaje;
 
     @ManyToMany
     @JoinTable(name = "servicio_hospedaje", joinColumns = @JoinColumn(name = "id_hospedaje"), inverseJoinColumns = @JoinColumn(name = "id_servicio"))

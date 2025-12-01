@@ -25,7 +25,7 @@ public class Usuario {
     private String nombre;
     @Column
     private String apellido;
-    @Column(nullable = true)
+    @Column(columnDefinition = "LONGTEXT")
     private String imagen;
     @Column
     private Integer dni;

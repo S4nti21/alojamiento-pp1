@@ -1,3 +1,4 @@
+-- Active: 1755188685255@@127.0.0.1@3306@alojamiento_pp1
 
 USE alojamiento_pp1;
 
@@ -17,7 +18,7 @@ CREATE TABLE IF NOT EXISTS usuario (
     email VARCHAR(100) UNIQUE,
     nombre VARCHAR(100),
     apellido VARCHAR(100),
-    imagen VARCHAR(500),
+    imagen LONGTEXT,
     dni INT
 );
 
@@ -25,8 +26,8 @@ CREATE TABLE IF NOT EXISTS hospedaje (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100),
     direccion VARCHAR(100),
-    descripcion VARCHAR(250),
-    imagen VARCHAR(500),
+    descripcion VARCHAR(800),
+    imagen LONGTEXT,
     precio_por_noche DOUBLE,
     fecha_creacion DATE,
     fecha_modificacion DATE,
